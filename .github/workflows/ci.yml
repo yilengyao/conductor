@@ -1,6 +1,12 @@
 name: CI
 
-on: [ push, pull_request ]
+on:
+  push:
+    paths-ignore:
+      - 'conductor-clients/**'
+  pull_request:
+    paths-ignore:
+      - 'conductor-clients/**'
 
 jobs:
   build:
@@ -89,14 +95,14 @@ jobs:
           component: true
 
       - name: Archive test screenshots
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: failure()
         with:
           name: cypress-screenshots
           path: ui/cypress/screenshots
       
       - name: Archive test videos
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         if: always()
         with:
           name: cypress-videos
